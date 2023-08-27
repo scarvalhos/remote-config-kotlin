@@ -1,0 +1,29 @@
+# Spring configuration
+spring:
+  # application configuration
+  application:
+    name: remote-config-service
+  # Database configuration
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${POSTGRESQL_HOST:localhost:5432}/${POSTGRESQL_DB:postgres}?useSSL=false
+    username: ${PROMPT_POSTGRESQL_USERNAME:remote-config}
+    password: ${PROMPT_POSTGRESQL_PASSWORD:remote-config}
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 300000
+      max-lifetime: 900000
+      minimum-idle: 1
+      maximum-pool-size: 2
+# JWT
+api:
+  security:
+    token:
+      secret: "1234567890"
+cors:
+  originPatterns: "${CORS_ORIGINS:http://localhost:3000,http://localhost:3001}"

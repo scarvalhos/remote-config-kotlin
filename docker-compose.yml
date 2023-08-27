@@ -1,0 +1,27 @@
+version: "3"
+services:
+#  build:
+#    image: public.ecr.aws/docker/library/gradle:7.6-jdk17
+#    container_name: build
+#    working_dir: /code
+#    volumes:
+#      - ./:/code
+#    command:
+#      - /bin/bash
+#      - -c
+#      - |
+#        gradle build -x test
+  postgres:
+    container_name: remote-config-db
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: remote-config
+      POSTGRES_PASSWORD: remote-config
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-db:/data/postgres
+    ports:
+      - '5432:5432'
+volumes:
+  postgres-db:
+    driver: local
